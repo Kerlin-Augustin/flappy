@@ -15,9 +15,11 @@ const SHARED_CONFIG = {
 }
 
 const config = {
+  //WebGL (web graphics library) JS Api for rendering 2D and 3D graphics
   type: Phaser.AUTO,
   ...SHARED_CONFIG,
   physics: {
+     // arcade physics plugin, manages physics simulation
     default: 'arcade',
     arcade: {
       // gravity: { y: 400 },

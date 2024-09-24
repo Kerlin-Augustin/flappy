@@ -15,12 +15,16 @@ class PlayScene extends Phaser.Scene {
     this.flapVelocity = 200
   }
 
+  // Loading assets, such as images, sound, animations...
   preload() {
+  // 'this' context - scene
+  // contains functions and props we can use
     this.load.image('sky', 'assets/sky.png');
     this.load.image('bird', 'assets/bird.png');
     this.load.image('pipe', 'assets/pipe.png');
   }
 
+  // creating instances of objects in memory that people will interact with.
   create() {
     this.createBG();
     this.createBird();
