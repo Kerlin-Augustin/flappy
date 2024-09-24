@@ -11,7 +11,10 @@ class PlayScene extends Phaser.Scene {
     this.pipesVelocity = -200
     this.pipeHorizontalDistanceRange = [400, 450]
     this.pipeVerticalDistanceRange = [100, 150]
-    this.flapVelocity = 200
+    this.flapVelocity = 250
+    this.gravity = 600
+    this.score = 0
+    this.scoreText = ''
   }
 
   // Loading assets, such as images, sound, animations...
@@ -29,6 +32,7 @@ class PlayScene extends Phaser.Scene {
     this.createBird();
     this.createPipes();
     this.createColliders();
+    this.createScore();
     this.handleInputs();
   }
 
@@ -43,7 +47,7 @@ class PlayScene extends Phaser.Scene {
 
   createBird() {
     this.bird = this.physics.add.sprite(this.config.startPosition.x, this.config.startPosition.y, 'bird').setOrigin(0);
-    this.bird.body.gravity.y = 400
+    this.bird.body.gravity.y = this.gravity;
     this.bird.setCollideWorldBounds(true)
   }
 
@@ -66,6 +70,11 @@ class PlayScene extends Phaser.Scene {
 
   createColliders() {
     this.physics.add.collider(this.bird, this.pipes, this.gameOver, null, this);
+  }
+
+  createScore(){
+    this.score = 0;
+    this.scoreText = this.add.text(16, 16, `Score: ${0}`, { fontSize: '32px', fill: '#000'})
   }
 
   handleInputs() {
@@ -101,6 +110,7 @@ class PlayScene extends Phaser.Scene {
         tempPipes.push(pipe)
         if (tempPipes.length === 2) {
           this.placePipe(...tempPipes)
+          this.increaseScore()
         }
       }
     })
@@ -128,6 +138,11 @@ class PlayScene extends Phaser.Scene {
 
   flap() {
     this.bird.body.velocity.y = -this.flapVelocity
+  }
+
+  increaseScore(){
+    this.score++
+    this.scoreText.setText(`Score: ${this.score}`)
   }
 }
 
