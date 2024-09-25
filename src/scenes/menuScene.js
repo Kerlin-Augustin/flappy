@@ -1,8 +1,8 @@
-import Phaser from "phaser";
+import BaseScene from "./baseScene";
 
-class MenuScene extends Phaser.Scene{
+class MenuScene extends BaseScene{
   constructor(config){
-    super('MenuScene')
+    super('MenuScene', config)
     this.config = config;
   }
   // preload(){
@@ -10,7 +10,8 @@ class MenuScene extends Phaser.Scene{
   // }
 
   create(){
-    this.createBG();
+    super.create();
+    this.scene.start('PlayScene')
   }
 
   // update(){

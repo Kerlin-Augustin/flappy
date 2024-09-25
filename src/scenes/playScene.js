@@ -1,11 +1,11 @@
-import Phaser from 'phaser';
+
+import BaseScene from './baseScene';
 
 const PIPES_TO_RENDER = 4
 
-class PlayScene extends Phaser.Scene {
+class PlayScene extends BaseScene {
   constructor(config) {
-    super('PlayScene');
-    this.config = config
+    super('PlayScene', config);
     this.bird = null
     this.pipes = null
     this.pause = null
@@ -30,7 +30,7 @@ class PlayScene extends Phaser.Scene {
 
   // creating instances of objects in memory that people will interact with.
   create() {
-    this.createBG();
+    super.create();
     this.createBird();
     this.createPipes();
     this.createColliders();
