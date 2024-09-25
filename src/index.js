@@ -3,6 +3,7 @@ import PlayScene from "./scenes/playScene";
 import MenuScene from "./scenes/menuScene";
 import PreloadScene from "./scenes/preloadScene";
 import ScoreScene from './scenes/scoreScene';
+import PauseScene from "./scenes/pauseScene";
 
 const WIDTH = 800
 const HEIGHT = 600
@@ -11,7 +12,7 @@ const BIRD_POSITION = {
   y: HEIGHT / 2
 }
 
-const Scenes = [PreloadScene, MenuScene, PlayScene, ScoreScene]
+const Scenes = [PreloadScene, MenuScene, PlayScene, ScoreScene, PauseScene]
 const createScene = Scene => new Scene(SHARED_CONFIG)
 const initScenes = () => Scenes.map(createScene)
 
