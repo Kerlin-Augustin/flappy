@@ -32,7 +32,14 @@ class PauseScene extends BaseScene {
       textGO.setStyle({fill: '#fff'});
     })
     textGO.on('pointerup', () => {
-      console.log('clicking on some option')
+      if(menuItem.scene && menuItem.text === 'Continue'){
+        this.scene.stop();
+        this.scene.resume(menuItem.scene);
+      }
+      if(menuItem.scene && menuItem.text === 'Exit'){
+        this.scene.stop('PlayScene');
+        this.scene.start(menuItem.scene);
+      }
     })
   }
 
