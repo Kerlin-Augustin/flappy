@@ -9,6 +9,7 @@ class PlayScene extends BaseScene {
     this.bird = null
     this.pipes = null
     this.pause = null
+    this.isPaused = false
     this.pipesVelocity = -200
     this.pipeHorizontalDistanceRange = [400, 450]
     this.pipeVerticalDistanceRange = [100, 150]
@@ -98,12 +99,14 @@ class PlayScene extends BaseScene {
   }
 
   createPause() {
+    this.isPaused = false
     const pauseButton = this.add.image(this.config.width - 10, this.config.height - 10, 'pause')
       .setInteractive({useHandCursor: true})
       .setScale(3)
       .setOrigin(1)
 
       pauseButton.on('pointerdown', () => {
+        this.isPaused = true;
         this.physics.pause();
         this.scene.pause();
         this.scene.launch('PauseScene');
@@ -183,6 +186,7 @@ class PlayScene extends BaseScene {
 
   flap() {
     this.bird.body.velocity.y = -this.flapVelocity
+    if(this.isPaused) return 
   }
 
   increaseScore() {
