@@ -54,6 +54,7 @@ class PlayScene extends BaseScene {
     this.initialTime--
     this.countDownText.setText(`Fly in: ${this.initialTime}`)
     if(this.initialTime <= 0){
+      this.isPaused = false;
       this.countDownText.setText('');
       this.physics.resume();
       this.timedEvent.remove();
@@ -185,8 +186,8 @@ class PlayScene extends BaseScene {
   }
 
   flap() {
-    this.bird.body.velocity.y = -this.flapVelocity
     if(this.isPaused) return 
+    this.bird.body.velocity.y = -this.flapVelocity
   }
 
   increaseScore() {
