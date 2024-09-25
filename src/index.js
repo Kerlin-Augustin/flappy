@@ -10,6 +10,10 @@ const BIRD_POSITION = {
   y: HEIGHT / 2
 }
 
+const Scenes = [PreloadScene, MenuScene, PlayScene]
+const createScene = Scene => new Scene(SHARED_CONFIG)
+const initScenes = () => Scenes.map(createScene)
+
 const SHARED_CONFIG = {
   width: WIDTH,
   height: HEIGHT,
@@ -27,7 +31,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [PreloadScene, new MenuScene(SHARED_CONFIG), new PlayScene(SHARED_CONFIG)]
+  scene: initScenes()
 };
 
 new Phaser.Game(config);
