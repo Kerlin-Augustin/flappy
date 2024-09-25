@@ -3,20 +3,27 @@ import BaseScene from "./baseScene";
 class MenuScene extends BaseScene{
   constructor(config){
     super('MenuScene', config)
-    this.config = config;
+
+    this.menu = [
+      {
+        scene: 'PlayScene',
+        text: 'Play',
+      },
+      {
+        scene: 'ScoreScene',
+        text: 'Score',
+      },
+      {
+        scene: null,
+        text: 'Exit',
+      },
+    ]
   }
-  // preload(){
-   
-  // }
 
   create(){
     super.create();
-    this.scene.start('PlayScene')
+    this.createMenu(this.menu);
   }
-
-  // update(){
-
-  // }
 
   createBG(){
     this.add.image(0, 0, 'sky').setOrigin(0);
