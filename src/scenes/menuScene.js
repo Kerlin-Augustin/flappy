@@ -5,9 +5,9 @@ class MenuScene extends Phaser.Scene{
     super('MenuScene')
     this.config = config;
   }
-  preload(){
-    this.load.image('sky', 'assets/sky.png')
-  }
+  // preload(){
+   
+  // }
 
   create(){
     this.createBG();
