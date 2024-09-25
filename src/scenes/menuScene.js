@@ -1,7 +1,7 @@
 import BaseScene from "./baseScene";
 
-class MenuScene extends BaseScene{
-  constructor(config){
+class MenuScene extends BaseScene {
+  constructor(config) {
     super('MenuScene', config)
 
     this.menu = [
@@ -20,14 +20,26 @@ class MenuScene extends BaseScene{
     ]
   }
 
-  create(){
+  create() {
     super.create();
-    this.createMenu(this.menu);
+    this.createMenu(this.menu, this.setupMenuEvents.bind(this));
   }
 
-  createBG(){
+  setupMenuEvents(menuItem) {
+    const textGO = menuItem.textGO
+    textGO.setInteractive();
+
+    textGO.on('pointerover', () => {
+      textGO.setStyle({fill: '#ff0', cursor: 'pointer'});
+    })
+    textGO.on('pointerout', () => {
+      textGO.setStyle({fill: '#fff'});
+    })
+  }
+
+  createBG() {
     this.add.image(0, 0, 'sky').setOrigin(0);
-    
+
   }
 }
 
