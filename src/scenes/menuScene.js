@@ -26,9 +26,8 @@ class MenuScene extends BaseScene {
   }
 
   setupMenuEvents(menuItem) {
-    console.log(menuItem)
     const textGO = menuItem.textGO
-    textGO.setInteractive();
+    textGO.setInteractive({useHandCursor: true});
 
     textGO.on('pointerover', () => {
       textGO.setStyle({fill: '#ff0', cursor: 'pointer'});
