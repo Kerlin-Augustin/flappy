@@ -75,17 +75,23 @@ class PlayScene extends Phaser.Scene {
     this.physics.add.collider(this.bird, this.pipes, this.gameOver, null, this);
   }
 
-  createScore(){
+  createScore() {
     this.score = 0;
     const bestScore = localStorage.getItem('bestScore')
-    this.scoreText = this.add.text(16, 16, `Score: ${0}`, { fontSize: '32px', fill: '#000'})
-    this.add.text(16, 52, `Best Score: ${bestScore || 0}`, { fontSize: '18px', fill: '#000'})
+    this.scoreText = this.add.text(16, 16, `Score: ${0}`, { fontSize: '32px', fill: '#000' })
+    this.add.text(16, 52, `Best Score: ${bestScore || 0}`, { fontSize: '18px', fill: '#000' })
   }
 
-  createPause(){
-    this.pause = this.add.image(this.config.width - 10, this.config.height - 10, 'pause')
-    .setScale(3)
-    .setOrigin(1)
+  createPause() {
+    const pauseButton = this.add.image(this.config.width - 10, this.config.height - 10, 'pause')
+      .setInteractive()
+      .setScale(3)
+      .setOrigin(1)
+
+      pauseButton.on('pointerdown', () => {
+        this.physics.pause();
+        this.scene.pause();
+      })
   }
 
   handleInputs() {
@@ -94,7 +100,7 @@ class PlayScene extends Phaser.Scene {
   }
 
   checkGameStatus() {
-    if (this.bird.y >= this.config.height - this.bird.height || this.bird.y <= 0  ) {
+    if (this.bird.y >= this.config.height - this.bird.height || this.bird.y <= 0) {
       this.gameOver()
     }
   }
@@ -135,11 +141,11 @@ class PlayScene extends Phaser.Scene {
     return rightMostX
   }
 
-  saveBestScore(){
+  saveBestScore() {
     const bestScoreText = localStorage.getItem('bestScore')
     const bestScore = bestScoreText && Number(bestScoreText)
 
-    if(!bestScore || this.score > bestScore){
+    if (!bestScore || this.score > bestScore) {
       localStorage.setItem('bestScore', this.score)
     }
   }
@@ -148,7 +154,7 @@ class PlayScene extends Phaser.Scene {
     this.physics.pause();
     this.bird.setTint(0xEE4824);
 
-    this.saveBestScore()  
+    this.saveBestScore()
 
     this.time.addEvent({
       delay: 1000,
@@ -163,7 +169,7 @@ class PlayScene extends Phaser.Scene {
     this.bird.body.velocity.y = -this.flapVelocity
   }
 
-  increaseScore(){
+  increaseScore() {
     this.score++
     this.scoreText.setText(`Score: ${this.score}`)
   }

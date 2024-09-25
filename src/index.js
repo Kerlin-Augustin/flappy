@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import PlayScene from "./scenes/playScene";
+import MenuScene from "./scenes/menuScene";
 
 const WIDTH = 800
 const HEIGHT = 600
@@ -22,11 +23,10 @@ const config = {
      // arcade physics plugin, manages physics simulation
     default: 'arcade',
     arcade: {
-      // gravity: { y: 400 },
       debug: true,
     },
   },
-  scene: [new PlayScene(SHARED_CONFIG)]
+  scene: [new MenuScene(SHARED_CONFIG), new PlayScene(SHARED_CONFIG)]
 };
 
 new Phaser.Game(config);
