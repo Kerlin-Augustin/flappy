@@ -11,16 +11,31 @@ class PlayScene extends BaseScene {
     this.pause = null
     this.isPaused = false
     this.pipesVelocity = -200
-    this.pipeHorizontalDistanceRange = [400, 450]
-    this.pipeVerticalDistanceRange = [100, 150]
     this.flapVelocity = 250
     this.gravity = 600
     this.score = 0
     this.scoreText = ''
+
+    this.currentDifficulty = 'easy'
+    this.difficulties = {
+      'easy': {
+        pipeHorizontalDistanceRange: [400, 450],
+        pipeVerticalDistanceRange: [150, 200]
+      },
+      'normal': {
+        pipeHorizontalDistanceRange: [300, 350],
+        pipeVerticalDistanceRange: [140, 190]
+      },
+      'hard': {
+        pipeHorizontalDistanceRange: [200, 250],
+        pipeVerticalDistanceRange: [120, 150]
+      }
+    }
   }
 
   // creating instances of objects in memory that people will interact with.
   create() {
+    this.currentDifficulty = 'easy'
     super.create();
     this.createBird();
     this.createPipes();
@@ -75,10 +90,10 @@ class PlayScene extends BaseScene {
     this.pipes = this.physics.add.group();
 
     for (let i = 0; i < PIPES_TO_RENDER; i++) {
-      const upperPipe = this.pipes.create(0, 0, 'pipe')
+      const upperPipe = this.pipes.create(300, 0, 'pipe')
         .setImmovable(true)
         .setOrigin(0, 1);
-      const lowerPipe = this.pipes.create(0, 0, 'pipe')
+      const lowerPipe = this.pipes.create(300, 0, 'pipe')
         .setImmovable(true)
         .setOrigin(0);
 
@@ -126,9 +141,10 @@ class PlayScene extends BaseScene {
   }
 
   placePipe(uPipe, lPipe) {
+    const difficulty = this.difficulties[this.currentDifficulty]
     const rightMostX = this.getRightMostPipe()
-    const pipeHorizontalDistance = Phaser.Math.Between(...this.pipeHorizontalDistanceRange);
-    const pipeVerticalDistance = Phaser.Math.Between(...this.pipeVerticalDistanceRange);
+    const pipeHorizontalDistance = Phaser.Math.Between(...difficulty.pipeHorizontalDistanceRange);
+    const pipeVerticalDistance = Phaser.Math.Between(...difficulty.pipeVerticalDistanceRange);
     const pipeVerticalPosition = Phaser.Math.Between(20, this.config.height - 20 - pipeVerticalDistance);
 
     uPipe.x = rightMostX + pipeHorizontalDistance
