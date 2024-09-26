@@ -86,17 +86,15 @@ class PlayScene extends BaseScene {
       this.physics.resume();
       this.timedEvent.remove();
     }
-  }
-
-  createBG() {
-    this.add.image(0, 0, 'sky').setOrigin(0);
-  }
+  } 
 
   createBird() {
     this.bird = this.physics.add.sprite(this.config.startPosition.x, this.config.startPosition.y, 'bird')
       .setFlipX(true)
       .setScale(2)
       .setOrigin(0);
+
+    this.bird.setBodySize(this.bird.width, this.bird.height - 8)
     this.bird.body.gravity.y = this.gravity;
     this.bird.setCollideWorldBounds(true)
   }
@@ -150,7 +148,7 @@ class PlayScene extends BaseScene {
   }
 
   checkGameStatus() {
-    if (this.bird.y >= this.config.height - this.bird.height || this.bird.y <= 0) {
+    if (this.bird.y >= this.config.height - this.bird.height - 10 || this.bird.y <= 0) {
       this.gameOver()
     }
   }
