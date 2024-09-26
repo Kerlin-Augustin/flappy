@@ -51,8 +51,8 @@ class PlayScene extends BaseScene {
     this.recyclePipes();
   }
 
-  listenToEvents(){
-    if(this.pauseEvent) return 
+  listenToEvents() {
+    if (this.pauseEvent) return
     this.pauseEvent = this.events.on('resume', () => {
       this.initialTime = 3
       this.countDownText = this.add.text(...this.screenCenter, `Fly in: ${this.initialTime}`, this.fontOptions).setOrigin(0.5, 1)
@@ -65,10 +65,10 @@ class PlayScene extends BaseScene {
     })
   }
 
-  countDown(){
+  countDown() {
     this.initialTime--
     this.countDownText.setText(`Fly in: ${this.initialTime}`)
-    if(this.initialTime <= 0){
+    if (this.initialTime <= 0) {
       this.isPaused = false;
       this.countDownText.setText('');
       this.physics.resume();
@@ -81,7 +81,10 @@ class PlayScene extends BaseScene {
   }
 
   createBird() {
-    this.bird = this.physics.add.sprite(this.config.startPosition.x, this.config.startPosition.y, 'bird').setOrigin(0);
+    this.bird = this.physics.add.sprite(this.config.startPosition.x, this.config.startPosition.y, 'bird')
+      .setFlipX(true)
+      .setScale(2)
+      .setOrigin(0);
     this.bird.body.gravity.y = this.gravity;
     this.bird.setCollideWorldBounds(true)
   }
@@ -117,16 +120,16 @@ class PlayScene extends BaseScene {
   createPause() {
     this.isPaused = false
     const pauseButton = this.add.image(this.config.width - 10, this.config.height - 10, 'pause')
-      .setInteractive({useHandCursor: true})
+      .setInteractive({ useHandCursor: true })
       .setScale(3)
       .setOrigin(1)
 
-      pauseButton.on('pointerdown', () => {
-        this.isPaused = true;
-        this.physics.pause();
-        this.scene.pause();
-        this.scene.launch('PauseScene');
-      })
+    pauseButton.on('pointerdown', () => {
+      this.isPaused = true;
+      this.physics.pause();
+      this.scene.pause();
+      this.scene.launch('PauseScene');
+    })
   }
 
   handleInputs() {
@@ -171,13 +174,13 @@ class PlayScene extends BaseScene {
     })
   }
 
-  increaseDifficulty(){
-    if(this.score === 15){
+  increaseDifficulty() {
+    if (this.score === 15) {
       this.currentDifficulty = 'normal'
       this.pipesVelocity = -220
       this.pipes.setVelocityX(this.pipesVelocity)
     }
-    if(this.score === 30){
+    if (this.score === 30) {
       this.currentDifficulty = 'hard'
       this.pipesVelocity = -250
       this.pipes.setVelocityX(this.pipesVelocity)
@@ -216,7 +219,7 @@ class PlayScene extends BaseScene {
   }
 
   flap() {
-    if(this.isPaused) return 
+    if (this.isPaused) return
     this.bird.body.velocity.y = -this.flapVelocity
   }
 
